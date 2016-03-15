@@ -15,6 +15,13 @@ Need a wireframing template? [See Garret's Wireframing template for Sketch](http
 2. Double click on **Sketch-Navigator.sketchplugin** to install.
 3. Use `Command + E` to navigate.
 
+## Change keyboard shortcut
+
+1. Go to your plugins directory, right click on the **Sketch-Navigator.sketchplugin** and click on **Show Package Contents**.
+2. Find the **manifest.json** file inside **Contents/Sketch**.
+3. Edit the **manifest.json** file and update the **shortcut** value under commands.
+4. Save and restart Sketch.
+
 # License
 
 The MIT License (MIT)
