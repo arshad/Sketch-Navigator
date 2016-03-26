@@ -8,7 +8,8 @@
   "menu" : {
     "title" : "Navigate",
     "items" : [
-      "navigate"
+      "navigate",
+      "jumpback"
     ]
   },
   "commands" : [
@@ -18,6 +19,13 @@
       "shortcut" : "cmd e",
       "name" : "Navigate",
       "identifier" : "navigate"
+    },
+    {
+      "script" : "sketch-navigator.cocoascript",
+      "handler" : "SketchNavigatorJumpBack",
+      "shortcut" : "cmd alt e",
+      "name" : "Jump back",
+      "identifier" : "jumpback"
     }
   ]
 }

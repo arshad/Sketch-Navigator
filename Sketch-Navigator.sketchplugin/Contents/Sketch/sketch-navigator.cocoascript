@@ -1,10 +1,12 @@
 @import './libraries/SketchConfig.cocoascript'
 
-// Default key for NSUserDefaults.
-var selectedArtboardkey = "SketchNavigatordefaultSelectedArtboardIndex"
+// Default keys for NSUserDefaults.
+var selectedArtboardKey = "SketchNavigatorSelectedArtboardKey"
+var previousArtboardKey = "SketchNavigatorPreviousArtboardKey"
 
 // Callback for navigate action.
-var SketchNavigatorNavigate = function(context) {
+var SketchNavigatorNavigate = function(context, jumpback) {
+  var jumpback = jumpback || false
   var document = context.document
 
   // Show an error message if document has no artboards.
@@ -20,31 +22,48 @@ var SketchNavigatorNavigate = function(context) {
   var comboxBoxValues = SketchNavigator.buildComboxBoxValuesFromTree(tree)
 
   // Get the default index.
-  var defaultSelectedArtboardIndex = SketchConfig.get(selectedArtboardkey)
-  if (defaultSelectedArtboardIndex === nil || defaultSelectedArtboardIndex > comboxBoxValues.length - 1) {
-    defaultSelectedArtboardIndex = 0
+  var defaultSelectedIndex = SketchConfig.get(selectedArtboardKey)
+  if (defaultSelectedIndex === nil || defaultSelectedIndex > comboxBoxValues.length - 1) {
+    defaultSelectedIndex = 0
+  }
+
+  // Get the previous index.
+  var selectedIndex = SketchConfig.get(previousArtboardKey)
+  if (selectedIndex === nil || selectedIndex > comboxBoxValues.length - 1) {
+    selectedIndex = 0
   }
 
   // Show the selector and get selected artboard.
-  var selectedComboxBoxValue = SketchNavigator.showArtboardSelector("Navigate", "Select an artboard", comboxBoxValues, defaultSelectedArtboardIndex)
-  if (selectedComboxBoxValue !== null) {
-    var selectedIndex = selectedComboxBoxValue.indexOfSelectedItem()
+  if (!jumpback) {
+    var selectedComboxBoxValue = SketchNavigator.showArtboardSelector("Navigate", "Select an artboard", comboxBoxValues, selectedIndex)
+    if (selectedComboxBoxValue !== null) {
+      selectedIndex = selectedComboxBoxValue.indexOfSelectedItem()
+    }
+  }
 
-    if (selectedIndex >= 0) {
-      // Set the default index.
-      defaultSelectedArtboardIndex = selectedComboxBoxValue.indexOfSelectedItem()
+  if (selectedIndex >= 0) {
+    var flattenedTree = SketchNavigator.flattenTree(tree)
+    var targetValue = comboxBoxValues[selectedIndex]
+    var target = flattenedTree[targetValue]
 
-      // Save to defaults.
-      SketchConfig.set(selectedArtboardkey, defaultSelectedArtboardIndex);
+    // Save to defaults.
+    SketchConfig.set(selectedArtboardKey, selectedIndex);
+    SketchConfig.set(previousArtboardKey, defaultSelectedIndex);
 
-      // Navigate to target.
-      var flattenedTree = SketchNavigator.flattenTree(tree)
-      var targetValue = selectedComboxBoxValue.objectValueOfSelectedItem()
-      var target = flattenedTree[targetValue]
-      SketchNavigator.navigateToArtboardOnPageInDocument(target["artboard"], target["page"], document)
+    // Navigate to target.
+    SketchNavigator.navigateToArtboardOnPageInDocument(target["artboard"], target["page"], document, !jumpback)
+
+    // Show a message if jumped back.
+    if (jumpback) {
+      [document showMessage:"Jumped to " + targetValue]
     }
   }
 };
+
+// Callback for jump back action.
+var SketchNavigatorJumpBack = function(context) {
+  SketchNavigatorNavigate(context, true)
+}
 
 // Sketch Navigator.
 var SketchNavigator = {
@@ -87,18 +106,22 @@ var SketchNavigator = {
   },
 
   // Navigates to an artboard.
-  navigateToArtboardOnPageInDocument: function(artboard, page, document) {
-    // Create a rect from artboard dimensions to zoom to.
-    var padding = 0.050
-    var rect = artboard.rect()
-    rect.origin.x -= rect.size.width * padding
-    rect.origin.y -= rect.size.height * padding
-    rect.size.width *= 1 + padding * 2
-    rect.size.height *= 1 + padding * 2
+  navigateToArtboardOnPageInDocument: function(artboard, page, document, zoom) {
+    var zoom = zoom || false
 
     var view = document.currentView()
     document.setCurrentPage(page)
-    view.zoomToFitRect(rect)
+
+    if (zoom) {
+      // Create a rect from artboard dimensions to zoom to.
+      var padding = 0.050
+      var rect = artboard.rect()
+      rect.origin.x -= rect.size.width * padding
+      rect.origin.y -= rect.size.height * padding
+      rect.size.width *= 1 + padding * 2
+      rect.size.height *= 1 + padding * 2
+      view.zoomToFitRect(rect)
+    }
   },
 
   // Builds a comboxBox friendly array from tree.
