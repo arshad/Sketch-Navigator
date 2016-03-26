@@ -13,7 +13,14 @@ Need a wireframing template? [See Garret's Wireframing template for Sketch](http
 
 1. Download and extract the plugin.
 2. Double click on **Sketch-Navigator.sketchplugin** to install.
-3. Use `Command + E` to navigate.
+
+## Navigate
+Use `Command + E` to navigate.
+
+A dropdown will be displayed to select the Artboard. Use arrow keys `↓` or `↑` to select artboard.
+
+## Jump back
+Use `Command + Alt + E` to quickly jump to the previous artboard.
 
 ## Change keyboard shortcut
 
