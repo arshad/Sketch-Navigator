@@ -19,9 +19,6 @@ Use `Command + E` to navigate.
 
 A dropdown will be displayed to select the Artboard. Use arrow keys `↓` or `↑` to select artboard.
 
-## Jump back
-Use `Command + Alt + E` to quickly jump to the previous artboard.
-
 ## Change keyboard shortcut
 
 1. Go to your plugins directory, right click on the **Sketch-Navigator.sketchplugin** and click on **Show Package Contents**.
