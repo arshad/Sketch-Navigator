@@ -9,7 +9,8 @@ https://github.com/arshad/Sketch-Navigator/archive/1.0.zip
 
 # Demo
 
-![Preview](http://i.imgur.com/Xu8vAKD.gif)
+![Preview](https://cloud.githubusercontent.com/assets/124599/21480965/f69cc6d0-cb7b-11e6-873e-be6b3e7f5271.gif)
+
 
 Need a wireframing template? [See Garret's Wireframing template for Sketch](https://www.chapterthree.com/blog/wireframing-template-sketch)
 
