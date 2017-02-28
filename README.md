@@ -3,6 +3,8 @@ Artboard navigation (with autocomplete) for Sketch. See a demo: https://www.yout
 
 <img src="http://i.imgur.com/PSbP5G7.jpg" width="150" />
 
+Read about it: https://www.subtraction.com/2016/03/08/artboard-navigator-for-sketch/
+
 # Download
 
 https://github.com/arshad/Sketch-Navigator/archive/1.0.zip
