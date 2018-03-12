@@ -1,4 +1,7 @@
-var SketchConfig = {
+let pluginIdentifier = 'io.arshad.sketch.sketch-navigator';
+let defaults = NSUserDefaults.alloc().initWithSuiteName(pluginIdentifier);
+
+module.exports = {
   /**
    * Sets the value of config using NSUserDefaults.
    *
@@ -8,9 +11,8 @@ var SketchConfig = {
    *  The value of the config.
    */
   set: function(name, value) {
-    var defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:value forKey:name]];
-    [defaults synchronize];
+    defaults.setObject_forKey(value, name);
+    defaults.synchronize();
   },
 
   /**
@@ -20,6 +22,6 @@ var SketchConfig = {
    *  The name of the config.
    */
   get: function(name) {
-    return [[NSUserDefaults standardUserDefaults] stringForKey:name];
+    return defaults.objectForKey(name);
   }
-}
+};

@@ -1,0 +1,35 @@
+{
+  "name": "sketch-navigator",
+  "version": "2.0.0",
+  "engines": {
+    "sketch": ">=3.0"
+  },
+  "skpm": {
+    "name": "sketch-navigator",
+    "manifest": "src/manifest.json",
+    "main": "plugin.sketchplugin",
+    "assets": [
+      "assets/**/*"
+    ]
+  },
+  "scripts": {
+    "build": "skpm-build",
+    "watch": "skpm-build --watch",
+    "start": "skpm-build --watch --run",
+    "postinstall": "npm run build && skpm-link"
+  },
+  "devDependencies": {
+    "@skpm/builder": "^0.4.0",
+    "@skpm/extract-loader": "^1.0.1",
+    "chosen-js": "^1.8.3",
+    "css-loader": "^0.28.7",
+    "html-loader": "^0.5.1",
+    "jquery": "^3.3.1",
+    "selectize": "^0.12.4",
+    "sketch-module-web-view": "^0.2.6"
+  },
+  "resources": [
+    "resources/**/*.js"
+  ],
+  "author": "Arshad Chummun <arshad@chummun.com>"
+}

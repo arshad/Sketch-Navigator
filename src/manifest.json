@@ -1,0 +1,27 @@
+{
+  "name" : "Sketch Navigator",
+  "author" : "Arshad Chummun",
+  "identifier" : "io.arshad.sketch-navigator",
+  "compatibleVersion": 3,
+  "bundleVersion": 2.0,
+  "icon": "icon.png",
+  "description" : "Quick artboard navigation for Sketch.",
+  "authorEmail" : "arshad@chummun.com",
+  "menu" : {
+    "title" : "Navigate",
+    "items" : [
+      "navigate"
+    ]
+  },
+  "commands" : [
+    {
+      "script" : "./commands.js",
+      "name" : "Navigate",
+      "shortcut" : "cmd alt e",
+      "identifier" : "navigate",
+      "handlers": {
+        "run": "navigate"
+      }
+    }
+  ]
+}
